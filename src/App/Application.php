@@ -82,7 +82,7 @@ class Application
                 $params['not-before'] = $lastMessageId;
             }
 
-            $roomName = urlencode($srcRoom);
+            $roomName = rawurlencode($srcRoom); // convert space to %20 instead of +
             $messages = $roomAPI->getRecentHistory($roomName, $params);
             if ($messages) {
                 $lastMessage = end($messages);
