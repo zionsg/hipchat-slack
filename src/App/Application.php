@@ -132,9 +132,9 @@ class Application
                     'username' => $username,
                     'icon_emoji' => $iconEmoji,
                 ]);
-echo json_encode($data) . "\n\n";
+
                 curl_setopt($handler, CURLOPT_POSTFIELDS, $data);
-                // curl_exec($handler);
+                curl_exec($handler);
             }
         }
 
