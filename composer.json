@@ -1,0 +1,22 @@
+{
+  "name": "zionsg/hipchat-slack",
+  "description": "Copy HipChat messages to Slack",
+  "type": "project",
+
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/zionsg/HipchatAPIv2Client"
+    }
+  ],
+
+  "require": {
+    "solutiondrive/hipchat-v2-api-client": "dev-feature/14"
+  },
+
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/App/"
+    }
+  }
+}

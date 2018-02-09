@@ -1,0 +1,28 @@
+<?php
+
+return [
+    // For keeping track of last message ids per room
+    'last_message_ids_file' => __DIR__ . '/../data/last-message-ids.json',
+
+    // Hipchat room => Slack channel (use null if using default channel for Slack)
+    'rooms' => [
+        'General'   => null,
+        'WP Master' => null,
+        'WordPress' => null,
+    ],
+
+    // Hipchat settings
+    'hipchat' => [
+        'timezone' => 'Asia/Shanghai',
+        'token' => '',
+    ],
+
+    // Slack settings
+    'slack' => [
+        // Via Incoming Webhooks integration
+        'webhook_url' => 'https://hooks.slack.com/services/abc',
+        'channel' => '#random', // default channel if none is specified
+        'username' => 'myBot',
+        'icon_emoji' => ':ghost:',
+    ],
+];

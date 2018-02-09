@@ -1,0 +1,125 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0f099b088896e8450c50a4370f457aef",
+    "packages": [
+        {
+            "name": "kriswallsmith/buzz",
+            "version": "v0.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "d0b82d8a6169276f91f445c26792ff4a2b11e831"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/d0b82d8a6169276f91f445c26792ff4a2b11e831",
+                "reference": "d0b82d8a6169276f91f445c26792ff4a2b11e831",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.3"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Buzz\\": "lib/Buzz"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ],
+            "time": "2017-11-24T19:18:50+00:00"
+        },
+        {
+            "name": "solutiondrive/hipchat-v2-api-client",
+            "version": "dev-feature/14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zionsg/HipchatAPIv2Client.git",
+                "reference": "3b2d050709551d6dcbae24bc9b900117fa948eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zionsg/HipchatAPIv2Client/zipball/3b2d050709551d6dcbae24bc9b900117fa948eba",
+                "reference": "3b2d050709551d6dcbae24bc9b900117fa948eba",
+                "shasum": ""
+            },
+            "require": {
+                "kriswallsmith/buzz": "^0.15",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "leanphp/phpspec-code-coverage": "^3.0",
+                "phpspec/phpspec": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SolutionDrive\\HipchatAPIv2Client\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gorka Laucirica",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net/"
+                },
+                {
+                    "name": "Tobias Lückel",
+                    "email": "lueckel@solutiondrive.de",
+                    "homepage": "https://solutiondrive.de"
+                }
+            ],
+            "description": "Hipchat v2 API client",
+            "homepage": "https://github.com/gorkalaucirica/HipchatAPIv2Client",
+            "keywords": [
+                "api",
+                "client",
+                "hipchat",
+                "library",
+                "v2"
+            ],
+            "support": {
+                "source": "https://github.com/zionsg/HipchatAPIv2Client/tree/feature/14"
+            },
+            "time": "2018-02-09T15:09:08+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "solutiondrive/hipchat-v2-api-client": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
