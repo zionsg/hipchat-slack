@@ -122,7 +122,7 @@ class Application
 
             foreach ($roomMessages as $message) {
                 $data = json_encode([
-                    'text' => sprintf("[From Hipchat, %s, %s, %s]\n\n%s",
+                    'text' => sprintf("[From Hipchat, %s, %s, %s]\n\n%s\n\n",
                         $srcRoom,
                         $message->getFrom(),
                         $message->getDate(),
