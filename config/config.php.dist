@@ -6,9 +6,8 @@ return [
 
     // Hipchat room => Slack channel (use null if using default channel for Slack)
     'rooms' => [
-        'General'   => null,
-        'WP Master' => null,
-        'WordPress' => null,
+        'General' => '#general',
+        'Upcoming Events' => null,
     ],
 
     // Hipchat settings
