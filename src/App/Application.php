@@ -121,10 +121,15 @@ class Application
             $dstRoom = $this->rooms[$srcRoom] ?? $config['channel'];
 
             foreach ($roomMessages as $message) {
+                $from = $message->getFrom();
+                if ('Link' === $from) {
+                    continue;
+                }
+
                 $data = json_encode([
                     'text' => sprintf("[From Hipchat, %s, %s, %s]\n\n%s\n\n",
                         $srcRoom,
-                        $message->getFrom(),
+                        $from,
                         $message->getDate(),
                         $message->getMessage()
                     ),
