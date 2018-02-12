@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f099b088896e8450c50a4370f457aef",
+    "content-hash": "a331ac82d3ad0924aca982f79dee4d9e",
     "packages": [
         {
             "name": "kriswallsmith/buzz",
@@ -56,16 +56,16 @@
         },
         {
             "name": "solutiondrive/hipchat-v2-api-client",
-            "version": "dev-feature/14",
+            "version": "dev-feature/16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zionsg/HipchatAPIv2Client.git",
-                "reference": "3b2d050709551d6dcbae24bc9b900117fa948eba"
+                "reference": "17646b2c04ef74a10cdbe594ae4f32b6d5322318"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zionsg/HipchatAPIv2Client/zipball/3b2d050709551d6dcbae24bc9b900117fa948eba",
-                "reference": "3b2d050709551d6dcbae24bc9b900117fa948eba",
+                "url": "https://api.github.com/repos/zionsg/HipchatAPIv2Client/zipball/17646b2c04ef74a10cdbe594ae4f32b6d5322318",
+                "reference": "17646b2c04ef74a10cdbe594ae4f32b6d5322318",
                 "shasum": ""
             },
             "require": {
@@ -107,9 +107,9 @@
                 "v2"
             ],
             "support": {
-                "source": "https://github.com/zionsg/HipchatAPIv2Client/tree/feature/14"
+                "source": "https://github.com/zionsg/HipchatAPIv2Client/tree/feature/16"
             },
-            "time": "2018-02-09T15:09:08+00:00"
+            "time": "2018-02-12T17:02:03+00:00"
         }
     ],
     "packages-dev": [],
