@@ -8,6 +8,7 @@
  * @link https://www.hipchat.com/docs/apiv2
  * @link https://www.hipchat.com/docs/apiv2/method/view_recent_room_history
  * @link https://api.slack.com/incoming-webhooks
+ * @link https://api.slack.com/docs/message-attachments#attachment_structure
  */
 
 namespace App;
@@ -121,13 +122,14 @@ class Application
             $dstRoom = $this->rooms[$srcRoom] ?? $config['channel'];
 
             foreach ($roomMessages as $message) {
+                // Hipchat creates an additional message per link in messages, ignored here
                 $from = $message->getFrom();
                 if ('Link' === $from) {
                     continue;
                 }
 
-                $data = json_encode([
-                    'text' => sprintf("[From Hipchat, %s, %s, %s]\n\n%s\n\n",
+                $data = [
+                    'text' => sprintf("*[From Hipchat, %s, %s, %s]*\n\n%s",
                         $srcRoom,
                         $from,
                         $message->getDate(),
@@ -136,9 +138,33 @@ class Application
                     'channel' => $dstRoom,
                     'username' => $username,
                     'icon_emoji' => $iconEmoji,
-                ]);
+                ];
 
-                curl_setopt($handler, CURLOPT_POSTFIELDS, $data);
+                $file = $message->getFile();
+                if ($file) {
+                    $name = $file->getName();
+                    $url = $file->getUrl();
+                    $thumbUrl = $file->getThumbUrl();
+
+                    if ($thumbUrl) {
+                        // File is an image having a thumbnail
+                        $attachment = [
+                            'title' => $name,
+                            'image_url' => $url,
+                            'thumb_url' => $file->getThumbUrl(),
+                        ];
+                    } else {
+                        // Show size of attachment in title
+                        $attachment = [
+                            'title' => $name . ' (' . $file->getSize() . ' B)',
+                            'title_link' => $url,
+                        ];
+                    }
+
+                    $data['attachments'] = [$attachment];
+                }
+
+                curl_setopt($handler, CURLOPT_POSTFIELDS, json_encode($data));
                 curl_exec($handler);
             }
         }
