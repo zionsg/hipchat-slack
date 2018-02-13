@@ -121,25 +121,40 @@ class Application
         foreach ($messages as $srcRoom => $roomMessages) {
             $dstRoom = $this->rooms[$srcRoom] ?? $config['channel'];
 
+            $prevFrom = '';
+            $prevTimestamp = 0;
             foreach ($roomMessages as $message) {
-                // Hipchat creates an additional message per link in messages, ignored here
                 $from = $message->getFrom();
+                $date = $message->getDate();
+                $timestamp = strtotime($date) ?: 0;
+                $text = $message->getMessage();
+
+                // Hipchat creates an additional message per link in messages, ignored here
                 if ('Link' === $from) {
                     continue;
                 }
 
-                $data = [
-                    'text' => sprintf("*[From Hipchat, %s, %s, %s]*\n\n%s",
+                // Heading for text - do not add if prev msg from same person within short timespan
+                if ($from != $prevFrom || ($timestamp - $prevTimestamp) > 300) {
+                    $text = sprintf("*[From Hipchat, %s, %s, %s]*\n\n%s",
                         $srcRoom,
                         $from,
-                        $message->getDate(),
-                        $message->getMessage()
-                    ),
+                        $date,
+                        $text
+                    );
+                }
+
+                // Store prev info and create main payload
+                $prevFrom = $from;
+                $prevTimestamp = $timestamp;
+                $data = [
+                    'text' => $text,
                     'channel' => $dstRoom,
                     'username' => $username,
                     'icon_emoji' => $iconEmoji,
                 ];
 
+                // Attachment
                 $file = $message->getFile();
                 if ($file) {
                     $name = $file->getName();
