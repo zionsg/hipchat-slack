@@ -4,10 +4,10 @@ return [
     // For keeping track of last message ids per room
     'last_message_ids_file' => __DIR__ . '/../data/last-message-ids.json',
 
-    // Hipchat room => Slack channel (use null if using default channel for Slack)
+    // Hipchat room => Slack channel (default channel in Slack settings will be used if not set)
     'rooms' => [
-        'General' => '#general',
-        'Upcoming Events' => null,
+        'General',
+        'Test Room' => '#test',
     ],
 
     // Hipchat settings

@@ -23,20 +23,29 @@ class Application
     protected $srcConfig;
     protected $dstConfig;
     protected $lastMessageIdsFile;
-    protected $lastMessageIds;
 
     public function __construct(array $config)
     {
-        $this->rooms = $config['rooms'] ?? [];
         $this->srcConfig = $config['hipchat'] ?? [];
         $this->dstConfig = $config['slack'] ?? [];
-        $this->lastMessageIdsFile = $config['last_message_ids_file'];
 
+        // Normalize rooms: [a, b => null, c => d] becomes [a => defaultChannel, b => defaultChannel, c => d]
+        $this->rooms = [];
+        $defaultDstChannel = $this->dstConfig['channel'] ?? null;
+        foreach (($config['rooms'] ?? []) as $srcRoom => $dstRoom) {
+            if (is_numeric($srcRoom)) { // [a] same as [0 => a]
+                $srcRoom = $dstRoom;
+                $dstRoom = $defaultDstChannel;
+            }
+
+            $this->rooms[$srcRoom] = $dstRoom ?: $defaultDstChannel;
+        }
+
+        // Create last message ids file if it does not exist
+        $this->lastMessageIdsFile = $config['last_message_ids_file'];
         if (! file_exists($this->lastMessageIdsFile)) {
             file_put_contents($this->lastMessageIdsFile, json_encode([]));
         }
-
-        $this->lastMessageIds = json_decode(file_get_contents($this->lastMessageIdsFile), true) ?: [];
     }
 
     /**
@@ -49,7 +58,6 @@ class Application
         $messages = $this->getMessages(
             $this->srcConfig,
             $this->rooms,
-            $this->lastMessageIds,
             $this->lastMessageIdsFile
         );
 
@@ -61,20 +69,20 @@ class Application
      *
      * @param  array $config
      * @param  array $rooms
-     * @param  array $lastMessageIds
      * @param  string $lastMessageIdsFile
      * @return array Messages indexed by rooms
      */
-    protected function getMessages(array $config, array $rooms, array $lastMessageIds, string $lastMessageIdsFile)
+    protected function getMessages(array $config, array $rooms, string $lastMessageIdsFile)
     {
         $token = $config['token'];
-        $auth = new OAuth2($token);
-        $client = new Client($auth);
-
-        $roomAPI = new RoomAPI($client);
         $timezone = $config['timezone'];
 
+        $auth = new OAuth2($token);
+        $client = new Client($auth);
+        $roomAPI = new RoomAPI($client);
+
         $result = [];
+        $lastMessageIds = json_decode(file_get_contents($lastMessageIdsFile), true) ?: [];
         foreach ($rooms as $srcRoom => $dstRoom) {
             $params = ['timezone' => $timezone];
 
@@ -119,7 +127,7 @@ class Application
         $username = $config['username'];
         $iconEmoji = $config['icon_emoji'];
         foreach ($messages as $srcRoom => $roomMessages) {
-            $dstRoom = $this->rooms[$srcRoom] ?? $config['channel'];
+            $dstRoom = $rooms[$srcRoom];
 
             $prevFrom = '';
             $prevTimestamp = 0;
